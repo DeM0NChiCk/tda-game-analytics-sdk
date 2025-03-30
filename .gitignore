@@ -9,7 +9,7 @@ yarn-error.log*
 .pnp.js
 
 /docs
-/type
+/types
 
 .idea
 
