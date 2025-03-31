@@ -1,21 +1,33 @@
 {
   "name": "tda-game-analytics-sdk",
-  "version": "1.0.2",
+  "version": "1.0.8",
   "description": "Analytics SDK for browser games",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./collectors": {
+      "import": "./dist/collectors/index.js",
+      "require": "./dist/collectors/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
     "docs": "typedoc src/index.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tda-game-analytics-sdk": "^1.0.6"
+  },
   "devDependencies": {
-    "typescript": "^5.8.2",
-    "typedoc": "^0.28.0"
+    "typedoc": "^0.28.0",
+    "typescript": "^5.8.2"
   },
   "files": [
-    "dist/**/*",
-    "types/**/*"
+    "dist/**/*"
   ],
   "keywords": [
     "analytics",

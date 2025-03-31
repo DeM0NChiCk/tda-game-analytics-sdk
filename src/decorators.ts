@@ -2,24 +2,23 @@ import { TDAGameAnalyticsSDK } from './sdk-core';
 import { EventPriority } from './types';
 
 export function TrackEvent(eventName: string, priority: EventPriority = EventPriority.NORMAL) {
-    return function (
+    return function <T extends Function>(
         target: any,
-        propertyKey: string,
-        descriptor: PropertyDescriptor
+        context: ClassMethodDecoratorContext
     ) {
-        const originalMethod = descriptor.value;
+        const originalMethod = target as T;
 
-        descriptor.value = function (...args: any[]) {
+        function replacementMethod(this: any, ...args: any[]) {
             const result = originalMethod.apply(this, args);
             TDAGameAnalyticsSDK.getInstance().trackCustomEvent(eventName, {
-                method: propertyKey,
+                method: context.name.toString(),
                 args: args,
                 result: result,
                 context: this
             });
             return result;
-        };
+        }
 
-        return descriptor;
+        return replacementMethod;
     };
 }
